@@ -197,21 +197,6 @@ h1 em { color: var(--accent); font-style: normal; }
 .fmt-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(232,255,0,0.06); }
 
 /* ── Reset ── */
-#reset-btn {
-  display: none;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--dim);
-  font-family: var(--font);
-  font-size: 12px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: all 0.12s;
-  letter-spacing: 0.06em;
-  margin-top: 4px;
-}
-#reset-btn.show { display: block; }
-#reset-btn:hover { border-color: var(--dim); color: var(--text); }
 </style>
 </head>
 <body>
@@ -267,7 +252,6 @@ h1 em { color: var(--accent); font-style: normal; }
     <div class="fmt-chip" data-ext="png"  data-args="-frames:v 1">PNG (1st frame)</div>
   </div>
 
-  <button id="reset-btn">↺ Convert another file</button>
 
 </div>
 
@@ -288,7 +272,6 @@ const dlBtn      = document.getElementById('dl-btn');
 const otherFmt   = document.getElementById('other-fmt-btn');
 const newFileBtn = document.getElementById('new-file-btn');
 const fmtStrip   = document.getElementById('fmt-strip');
-const resetBtn   = document.getElementById('reset-btn');
 
 // ── State ──────────────────────────────────────────────────────────────────
 let ffmpeg = null, fetchFile = null, ffmpegReady = false;
@@ -366,7 +349,6 @@ async function convert(file, ext, args) {
   outputEl.classList.remove('show');
   actionsEl.style.display = 'none';
   fmtStrip.classList.remove('show');
-  resetBtn.classList.remove('show');
   setProgress(0);
   logBox.innerHTML = '';
 
@@ -454,8 +436,7 @@ async function convert(file, ext, args) {
   };
 
   actionsEl.style.display = 'flex';
-  fmtStrip.classList.add('show');
-  resetBtn.classList.add('show');
+  
 }
 
 // ── Drop / file pick ───────────────────────────────────────────────────────
@@ -514,7 +495,6 @@ function reset() {
   outputEl.classList.remove('show');
   actionsEl.style.display = 'none';
   fmtStrip.classList.remove('show');
-  resetBtn.classList.remove('show');
   videoEl.src = '';
   progBar.style.width = '0%';
   logBox.innerHTML = '';
@@ -524,7 +504,6 @@ function reset() {
 }
 
 newFileBtn.addEventListener('click', reset);
-resetBtn.addEventListener('click', reset);
 
 // ── Drop on whole page ─────────────────────────────────────────────────────
 document.addEventListener('dragover', e => e.preventDefault());
